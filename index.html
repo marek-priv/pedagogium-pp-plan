@@ -55,6 +55,12 @@
     white-space: nowrap;
   }
   .chip b { color: #ffd27a; font-weight: 700; }
+  a.chip-link {
+    display: inline-block; text-decoration: none; cursor: pointer;
+    background: rgba(245,158,11,.25); border-color: rgba(255,210,122,.55);
+    color: #ffe1a3;
+  }
+  a.chip-link:hover { background: rgba(245,158,11,.45); color: #fff; }
 
   /* ---------- zjazd strip ---------- */
   .zjazdy {
@@ -81,7 +87,7 @@
     border: 1px solid var(--line); border-radius: 12px;
   }
   .tab-btn {
-    flex: 1 1 220px;
+    flex: 1 1 180px;
     border: none; cursor: pointer; border-radius: 8px;
     padding: 10px 14px; font: inherit;
     font-size: 13.5px; font-weight: 700; letter-spacing: .3px;
@@ -155,7 +161,8 @@
   .cls:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(20,30,60,.14); }
   .cls .t {
     font-size: 11.5px; font-weight: 700; line-height: 1.25; color: var(--ink);
-    display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    flex: 0 0 auto; /* single line, always visible; full name on hover */
   }
   .cls .meta { margin-top: auto; display: flex; flex-wrap: wrap; gap: 4px; align-items: center; }
   .fchip {
@@ -166,17 +173,57 @@
   .f-cwiczenia { background: #1d9e6f; }
   .f-konwersatorium { background: #8b5cf6; }
   .f-lektorat { background: #e07b39; }
+  .f-spotkanie { background: #b45309; }
+
+  /* classes already held */
+  .cls.past { opacity: .62; border-left-style: dashed; }
+  .cls .done {
+    font-size: 9px; font-weight: 800; color: #92400e;
+    text-transform: uppercase; letter-spacing: .4px;
+  }
+  .cls .done.nh { color: #b91c1c; }
   .cls .lect { font-size: 10px; color: var(--ink-soft); font-weight: 600; }
   .cls .hrs { font-size: 9.5px; color: var(--ink-faint); }
   .cls .star { color: #b45309; font-weight: 800; font-size: 10px; }
 
+  /* cells holding several subjects: cards stack in an inner flex wrapper */
+  .matrix td .stack { display: flex; flex-direction: column; gap: 5px; }
+  .matrix td .stack .cls { height: auto; }
+
   /* subject colors */
-  .s-metodyka        { --sc: #059669; --scbg: #e8f7f1; }
   .s-zaburzenia      { --sc: #e11d48; --scbg: #fcecf0; }
+  .s-dydaktyka       { --sc: #d97706; --scbg: #fdf3e2; }
   .s-pedspec         { --sc: #0d9488; --scbg: #e5f6f4; }
   .s-praca           { --sc: #9333ea; --scbg: #f4eafd; }
-  .s-dydaktyka       { --sc: #d97706; --scbg: #fdf3e2; }
   .s-animacja        { --sc: #0e7490; --scbg: #e3f3f7; }
+  .s-metodyka        { --sc: #059669; --scbg: #e8f7f1; }
+  .s-spotkanie       { --sc: #b45309; --scbg: #fef3c7; }
+
+  /* ---------- changelog ---------- */
+  .changes { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+  .chg-group {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 18px 20px; box-shadow: var(--shadow);
+  }
+  .chg-group h3 {
+    font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .8px;
+    color: var(--navy); margin-bottom: 10px; display: flex; align-items: center; gap: 7px;
+  }
+  .chg-group h3 .cbadge { display: inline-block; width: 8px; height: 8px; border-radius: 2px; }
+  .chg-group ul { padding-left: 16px; }
+  .chg-group li { margin-bottom: 7px; font-size: 12.5px; color: var(--ink-soft); line-height: 1.45; }
+  .chg-group li b { color: var(--ink); }
+  .chg-arrow { color: var(--ink-faint); font-weight: 700; }
+  .chg-del { color: #b91c1c; }
+  .chg-new { color: #047857; font-weight: 600; }
+  .chg-stamp {
+    margin-bottom: 14px; font-size: 12.5px; color: var(--ink-soft);
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  }
+  .chg-stamp .ver {
+    background: #fef3c7; color: #92400e; border: 1px solid #fcd34d;
+    font-weight: 700; font-size: 11px; padding: 3px 10px; border-radius: 999px;
+  }
 
   /* ---------- zaliczenia table ---------- */
   .zal-table { min-width: 640px; }
@@ -204,6 +251,9 @@
   }
   .zchip-egz { background: #fce4ec; color: #9d174d; border: 1px solid #f48fb1; }
   .zchip-zo { background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; }
+  .zchip-tba { background: #f1f5f9; color: #64748b; border: 1px dashed #cbd5e1; }
+  .zal-det { margin-top: 6px; font-size: 11px; color: var(--ink-soft); line-height: 1.45; }
+  .zal-det b { color: var(--ink); }
 
   /* ---------- legend ---------- */
   .legend { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
@@ -351,7 +401,7 @@
     .matrix td { padding: 2px; height: auto; }
 
     .cls { padding: 3px 5px; border-radius: 5px; gap: 2px; }
-    .cls .t { font-size: 8.5px; -webkit-line-clamp: 2; line-height: 1.2; }
+    .cls .t { font-size: 8.5px; white-space: normal; line-height: 1.2; }
     .cls .lect { font-size: 7.5px; }
     .cls .hrs { font-size: 7px; }
     .fchip { font-size: 7px; padding: 1px 4px; }
@@ -383,6 +433,7 @@
       <span class="chip">Semestr <b>zimowy 2026/2027</b></span>
       <span class="chip">💻 <b>Online</b> — MS Teams (sobota i niedziela)</span>
       <span class="chip">Sesja egzaminacyjna: <b>13–14.02.2027</b></span>
+      <a class="chip chip-link" href="#panel-zmiany" id="zmianyLink">Zobacz zmiany →</a>
     </div>
   </header>
 
@@ -399,6 +450,9 @@
     </button>
     <button class="tab-btn" role="tab" aria-selected="false" data-panel="zaliczenia">
       <span class="dot" style="background:#a78bfa"></span> Zaliczenia
+    </button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-panel="zmiany">
+      <span class="dot" style="background:#f59e0b"></span> Zmiany w planie
     </button>
   </nav>
 
@@ -428,12 +482,65 @@
     </div>
   </section>
 
+  <!-- ================= ZMIANY ================= -->
+  <section class="panel" id="panel-zmiany" role="tabpanel">
+    <h2 class="panel-title">Zmiany w planie</h2>
+    <div class="chg-stamp">
+      <span class="ver">Wersja bieżąca</span>
+      <span>Aktualizacja: <b>23.10.2026</b> — zestawienie zmian względem wcześniejszej wersji planu.</span>
+    </div>
+    <div class="changes">
+      <div class="chg-group">
+        <h3><span class="cbadge" style="background:#b91c1c"></span>Prowadzący — odejścia</h3>
+        <ul>
+          <li><b class="chg-del">mgr E. Siwek-Jagodzińska</b> — usunięta z planu (prowadziła: Metodyka wychowania — ćwiczenia, Pedagogika specjalna — wykład i ćwiczenia).</li>
+          <li><b class="chg-del">mgr M. Żaboklicka</b> — usunięta (Zaburzenia psychospołeczne — wykład; Animacja środowiskowa — ćwiczenia).</li>
+          <li><b class="chg-del">dr B. Galas</b> — usunięta (Praca dyplomowa — ćwiczenia).</li>
+          <li><b class="chg-del">dr U. Kropaczewska</b> — usunięta (Dydaktyka przedmiotowa — ćwiczenia).</li>
+        </ul>
+      </div>
+      <div class="chg-group">
+        <h3><span class="cbadge" style="background:#047857"></span>Nowi prowadzący</h3>
+        <ul>
+          <li><b>Zaburzenia psychospołeczne — wykład</b> <span class="chg-arrow">→</span> <b class="chg-new">dr M. Dubis</b>.</li>
+          <li><b>Dydaktyka przedmiotowa — wykład</b> <span class="chg-arrow">→</span> <b class="chg-new">dr M. Gerung</b>.</li>
+          <li><b>Pedagogika specjalna — wykład</b> <span class="chg-arrow">→</span> <b class="chg-new">dr hab. Dycht</b>.</li>
+          <li><b>Pedagogika specjalna — ćwiczenia</b> <span class="chg-arrow">→</span> <b class="chg-new">mgr M. Ochnio</b>.</li>
+          <li><b>Praca dyplomowa — ćwiczenia</b> <span class="chg-arrow">→</span> <b class="chg-new">dr A. Cwer</b>.</li>
+          <li><b>Dydaktyka przedmiotowa — ćwiczenia</b> <span class="chg-arrow">→</span> <b class="chg-new">mgr A. Sikorska</b>.</li>
+          <li><b>Animacja środowiskowa — ćwiczenia</b> <span class="chg-arrow">→</span> <b class="chg-new">mgr K. Wyszomirska</b>.</li>
+          <li><b>Metodyka wychowania — ćwiczenia</b> <span class="chg-arrow">→</span> <b class="chg-new">mgr A. Sikorska</b>.</li>
+        </ul>
+      </div>
+      <div class="chg-group">
+        <h3><span class="cbadge" style="background:#3b6fd4"></span>Wymiar zajęć</h3>
+        <ul>
+          <li><b>Metodyka wychowania (ćwiczenia)</b>: 10 godz. <span class="chg-arrow">→</span> <b class="chg-new">20 godz.</b></li>
+          <li><b>Zaburzenia psychospołeczne (wykład)</b>: 6 godz. <span class="chg-arrow">→</span> <b class="chg-new">10 godz.</b></li>
+          <li><b>Pedagogika specjalna (wykład i ćwiczenia)</b>: po 6 godz. <span class="chg-arrow">→</span> <b class="chg-new">po 10 godz.</b></li>
+          <li><b>Dydaktyka przedmiotowa (wykład)</b>: 6 godz. <span class="chg-arrow">→</span> <b class="chg-new">10 godz.</b></li>
+          <li><b>Animacja środowiskowa (ćwiczenia)</b>: 6 godz. <span class="chg-arrow">→</span> <b class="chg-new">10 godz.</b></li>
+          <li>Łączny wymiar: 70 godz. <span class="chg-arrow">→</span> <b class="chg-new">100 godz.</b> (36 pkt. ECTS bez zmian).</li>
+        </ul>
+      </div>
+      <div class="chg-group">
+        <h3><span class="cbadge" style="background:#d97706"></span>Organizacja zjazdów</h3>
+        <ul>
+          <li><b>Sobota:</b> zajęcia w blokach 8.00–11.15 / 11.30–15.00 / 15.15–18.30 — <b class="chg-new">brak bloku wieczornego 18.45–20.15</b>.</li>
+          <li><b>Niedziela:</b> pełna siatka 8.00–18.30 + <b class="chg-new">nowy blok wieczorny 18.45–20.15</b> (Metodyka wychowania, zjazdy 6–7).</li>
+          <li><b>Zjazd I (10–11.10)</b>: w nowej wersji planu brak zaplanowanych zajęć.</li>
+          <li>Terminarz zjazdów i sesja egzaminacyjna (13–14.02.2027) <b>bez zmian</b>.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
   <!-- ================= FOOTNOTES ================= -->
   <section class="notes">
     <div class="note">
       <h3>Wymiar zajęć i regulacje</h3>
       <ul>
-        <li><b>Wymiar zajęć: 70 godz.</b> · 36 pkt. ECTS — pełna realizacja planu semestru II.</li>
+        <li><b>Wymiar zajęć: 100 godz.</b> · 36 pkt. ECTS — pełna realizacja planu semestru III.</li>
         <li>Terminarz zjazdów (<b>tok A</b>): 9 zjazdów weekendowych od 10–11.10.2026 do 06–07.02.2027.</li>
         <li><b>Sesja egzaminacyjna:</b> 13–14.02.2027 r.</li>
       </ul>
@@ -442,14 +549,14 @@
       <h3>Forma zajęć</h3>
       <ul>
         <li><b>Wszystkie zajęcia</b> (sobota i niedziela) odbywają się w formule <b>online — MS Teams</b>.</li>
-        <li>Zajęcia niedzielne prowadzone w blokach: 8.00–13.00, 9.45–13.00 oraz 15.15–18.30.</li>
+        <li>Sobota: bloki 8.00–11.15, 11.30–15.00, 15.15–18.30 · Niedziela: dodatkowo blok 18.45–20.15.</li>
       </ul>
     </div>
     <div class="note">
       <h3>Formy zaliczenia</h3>
       <ul>
-        <li><b>E — egzamin:</b> Pedagogika specjalna i wczesna interwencja (ćw. i wyk.), Praca dyplomowa.</li>
-        <li><b>ZO — zaliczenie z oceną:</b> Metodyka wychowania i aktywizacja, Zaburzenia psychospołeczne i rozwojowe, Dydaktyka przedmiotowa (wyk. i ćw.), Animacja środowiskowa.</li>
+        <li><b>E — egzamin:</b> Pedagogika specjalna i wczesna interwencja (wyk. i ćw.), Praca dyplomowa.</li>
+        <li><b>ZO — zaliczenie z oceną:</b> Zaburzenia psychospołeczne i rozwojowe, Dydaktyka przedmiotowa (wyk. i ćw.), Animacja środowiskowa, Metodyka wychowania i aktywizacja.</li>
       </ul>
     </div>
   </section>
@@ -471,6 +578,9 @@ const ZJAZDY = [
 ];
 const SESJA = "13–14.02.2027";
 
+/* zjazdy już odbyte — wszystkie karty w tych kolumnach są wyciszone */
+const PAST_ZJ = new Set([]);
+
 const SLOTS = {
   sobota: [
     "8.00 – 9.30",
@@ -479,50 +589,66 @@ const SLOTS = {
     "13.30 – 15.00",
     "15.15 – 16.45",
     "17.00 – 18.30",
-    "18.45 – 20.15",
   ],
   niedziela: [
-    "8.00 – 13.00",
-    "9.45 – 13.00",
-    "15.15 – 18.30",
+    "8.00 – 9.30",
+    "9.45 – 11.15",
+    "11.30 – 13.00",
+    "13.30 – 15.00",
+    "15.15 – 16.45",
+    "17.00 – 18.30",
+    "18.45 – 20.15",
   ],
 };
 
 // short display titles keep cells readable; full title in tooltip
 const CLASSES = {
   sobota: [
-    { slot: 0, title: "Metodyka wychowania i aktywizacja", full: "Metodyka wychowania oraz aktywizacja dzieci i młodzieży", form: "ćwiczenia", hrs: "10 godz. · 5 ECTS", ects: "ZO", lect: "mgr E. Siwek-Jagodzińska", cls: "s-metodyka", zj: [4,5,6] },
-    { slot: 0, title: "Zaburzenia psychospołeczne i rozwojowe", full: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży", form: "wykład", hrs: "6 godz. · 4 ECTS", ects: "ZO", lect: "mgr M. Żaboklicka", cls: "s-zaburzenia", zj: [7] },
-    { slot: 1, title: "Pedagogika specjalna — ćwiczenia", full: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "6 godz. · 5 ECTS", ects: "E", lect: "mgr E. Siwek-Jagodzińska", cls: "s-pedspec", zj: [5] },
-    { slot: 1, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "6 godz. · 5 ECTS", ects: "E", lect: "mgr E. Siwek-Jagodzińska", cls: "s-pedspec", zj: [4] },
-    { slot: 1, title: "Metodyka wychowania i aktywizacja", full: "Metodyka wychowania oraz aktywizacja dzieci i młodzieży", form: "ćwiczenia", hrs: "10 godz. · 5 ECTS", ects: "ZO", lect: "mgr E. Siwek-Jagodzińska", cls: "s-metodyka", zj: [6,8] },
-    { slot: 1, title: "Zaburzenia psychospołeczne i rozwojowe", full: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży", form: "wykład", hrs: "6 godz. · 4 ECTS", ects: "ZO", lect: "mgr M. Żaboklicka", cls: "s-zaburzenia", zj: [7] },
-    { slot: 2, title: "Pedagogika specjalna — ćwiczenia", full: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "6 godz. · 5 ECTS", ects: "E", lect: "mgr E. Siwek-Jagodzińska", cls: "s-pedspec", zj: [5] },
-    { slot: 2, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "6 godz. · 5 ECTS", ects: "E", lect: "mgr E. Siwek-Jagodzińska", cls: "s-pedspec", zj: [4] },
-    { slot: 2, title: "Zaburzenia psychospołeczne i rozwojowe", full: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży", form: "wykład", hrs: "6 godz. · 4 ECTS", ects: "ZO", lect: "mgr M. Żaboklicka", cls: "s-zaburzenia", zj: [7] },
-    { slot: 3, title: "Pedagogika specjalna — ćwiczenia", full: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "6 godz. · 5 ECTS", ects: "E", lect: "mgr E. Siwek-Jagodzińska", cls: "s-pedspec", zj: [5] },
-    { slot: 3, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "6 godz. · 5 ECTS", ects: "E", lect: "mgr E. Siwek-Jagodzińska", cls: "s-pedspec", zj: [4] },
-    { slot: 4, title: "Praca dyplomowa", full: "Praca dyplomowa", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr B. Galas", cls: "s-praca", zj: [7] },
-    { slot: 5, title: "Praca dyplomowa", full: "Praca dyplomowa", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr B. Galas", cls: "s-praca", zj: [3,4,9] },
-    { slot: 6, title: "Dydaktyka przedmiotowa", full: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "6 godz. · 6 ECTS", ects: "ZO", lect: "mgr M. Ochnio", cls: "s-dydaktyka", zj: [3,5,6] },
-    { slot: 6, title: "Praca dyplomowa", full: "Praca dyplomowa", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr B. Galas", cls: "s-praca", zj: [4] },
+    { slot: 0, title: "Zaburzenia psychospołeczne i rozwojowe", full: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży — wykład", form: "wykład", hrs: "10 godz. · 4 ECTS", ects: "ZO", lect: "dr M. Dubis", cls: "s-zaburzenia", zj: [2,8] },
+    { slot: 0, title: "Dydaktyka przedmiotowa", full: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz. · 6 ECTS", ects: "ZO", lect: "dr M. Gerung", cls: "s-dydaktyka", zj: [3] },
+    { slot: 0, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "dr hab. Dycht", cls: "s-pedspec", zj: [9] },
+    { slot: 1, title: "Zaburzenia psychospołeczne i rozwojowe", full: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży — wykład", form: "wykład", hrs: "10 godz. · 4 ECTS", ects: "ZO", lect: "dr M. Dubis", cls: "s-zaburzenia", zj: [2,8] },
+    { slot: 1, title: "Dydaktyka przedmiotowa", full: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz. · 6 ECTS", ects: "ZO", lect: "dr M. Gerung", cls: "s-dydaktyka", zj: [3] },
+    { slot: 2, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "dr hab. Dycht", cls: "s-pedspec", zj: [6] },
+    { slot: 2, title: "Zaburzenia psychospołeczne i rozwojowe", full: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży — wykład", form: "wykład", hrs: "10 godz. · 4 ECTS", ects: "ZO", lect: "dr M. Dubis", cls: "s-zaburzenia", zj: [3] },
+    { slot: 2, title: "Dydaktyka przedmiotowa", full: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz. · 6 ECTS", ects: "ZO", lect: "dr M. Gerung", cls: "s-dydaktyka", zj: [5,8] },
+    { slot: 3, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "dr hab. Dycht", cls: "s-pedspec", zj: [6] },
+    { slot: 3, title: "Dydaktyka przedmiotowa", full: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz. · 6 ECTS", ects: "ZO", lect: "dr M. Gerung", cls: "s-dydaktyka", zj: [5] },
+    { slot: 4, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "dr hab. Dycht", cls: "s-pedspec", zj: [4] },
+    { slot: 5, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "dr hab. Dycht", cls: "s-pedspec", zj: [4] },
   ],
   niedziela: [
-    { slot: 0, title: "Animacja środowiskowa", full: "Animacja środowiskowa", form: "ćwiczenia", hrs: "6 godz. · 4 ECTS", ects: "ZO", lect: "mgr M. Żaboklicka", cls: "s-animacja", zj: [6] },
-    { slot: 1, title: "Dydaktyka przedmiotowa — ćwiczenia", full: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 6 ECTS", ects: "ZO", lect: "dr U. Kropaczewska", cls: "s-dydaktyka", zj: [5,9] },
-    { slot: 2, title: "Dydaktyka przedmiotowa — ćwiczenia", full: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 6 ECTS", ects: "ZO", lect: "dr U. Kropaczewska", cls: "s-dydaktyka", zj: [5,6,9] },
+    { slot: 0, title: "Pedagogika specjalna — ćwiczenia", full: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "mgr M. Ochnio", cls: "s-pedspec", zj: [2,5] },
+    { slot: 0, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [3,4,7] },
+    { slot: 0, title: "Dydaktyka przedmiotowa — ćwiczenia", full: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 6 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-dydaktyka", zj: [6,8,9] },
+    { slot: 1, title: "Pedagogika specjalna — ćwiczenia", full: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "mgr M. Ochnio", cls: "s-pedspec", zj: [2,5] },
+    { slot: 1, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [3,4,7] },
+    { slot: 1, title: "Dydaktyka przedmiotowa — ćwiczenia", full: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 6 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-dydaktyka", zj: [6,8,9] },
+    { slot: 2, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [4] },
+    { slot: 2, title: "Dydaktyka przedmiotowa — ćwiczenia", full: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 6 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-dydaktyka", zj: [6,8,9] },
+    { slot: 3, title: "Animacja środowiskowa", full: "Animacja środowiskowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 4 ECTS", ects: "ZO", lect: "mgr K. Wyszomirska", cls: "s-animacja", zj: [3] },
+    { slot: 3, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [4] },
+    { slot: 3, title: "Dydaktyka przedmiotowa — ćwiczenia", full: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 6 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-dydaktyka", zj: [6,8,9] },
+    { slot: 3, title: "Pedagogika specjalna — ćwiczenia", full: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "mgr M. Ochnio", cls: "s-pedspec", zj: [7] },
+    { slot: 4, title: "Animacja środowiskowa", full: "Animacja środowiskowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 4 ECTS", ects: "ZO", lect: "mgr K. Wyszomirska", cls: "s-animacja", zj: [2,5] },
+    { slot: 4, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [4] },
+    { slot: 4, title: "Metodyka wychowania i aktywizacja", full: "Metodyka wychowania oraz aktywizacja dzieci i młodzieży — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 5 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-metodyka", zj: [6,7,8,9] },
+    { slot: 5, title: "Animacja środowiskowa", full: "Animacja środowiskowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 4 ECTS", ects: "ZO", lect: "mgr K. Wyszomirska", cls: "s-animacja", zj: [2,5] },
+    { slot: 5, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [4] },
+    { slot: 5, title: "Metodyka wychowania i aktywizacja", full: "Metodyka wychowania oraz aktywizacja dzieci i młodzieży — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 5 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-metodyka", zj: [6,7,8,9] },
+    { slot: 6, title: "Metodyka wychowania i aktywizacja", full: "Metodyka wychowania oraz aktywizacja dzieci i młodzieży — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 5 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-metodyka", zj: [6,7] },
   ],
 };
 
 const SUBJECTS = [
-  { name: "Metodyka wychowania oraz aktywizacja dzieci i młodzieży — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "5 ECTS · ZO", lect: "mgr Ewelina Siwek-Jagodzińska", cls: "s-metodyka", zal: "zo" },
-  { name: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży — wykład", form: "wykład", hrs: "6 godz.", ects: "4 ECTS · ZO", lect: "mgr Mariola Żaboklicka", cls: "s-zaburzenia", zal: "zo" },
-  { name: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "6 godz.", ects: "5 ECTS · E", lect: "mgr Ewelina Siwek-Jagodzińska", cls: "s-pedspec", zal: "egz" },
-  { name: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "6 godz.", ects: "5 ECTS · E", lect: "mgr Ewelina Siwek-Jagodzińska", cls: "s-pedspec", zal: "egz" },
-  { name: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "1 ECTS · E", lect: "dr Barbara Galas", cls: "s-praca", zal: "egz" },
-  { name: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "6 godz.", ects: "6 ECTS · ZO", lect: "mgr Małgorzata Ochnio", cls: "s-dydaktyka", zal: "zo" },
-  { name: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz.", ects: "6 ECTS · ZO", lect: "dr Urszula Kropaczewska", cls: "s-dydaktyka", zal: "zo" },
-  { name: "Animacja środowiskowa — ćwiczenia", form: "ćwiczenia", hrs: "6 godz.", ects: "4 ECTS · ZO", lect: "mgr Mariola Żaboklicka", cls: "s-animacja", zal: "zo" },
+  { name: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży — wykład", form: "wykład", hrs: "10 godz.", ects: "4 ECTS · ZO", lect: "dr M. Dubis", cls: "s-zaburzenia", zal: "zo" },
+  { name: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz.", ects: "6 ECTS · ZO", lect: "dr M. Gerung", cls: "s-dydaktyka", zal: "zo" },
+  { name: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz.", ects: "5 ECTS · E", lect: "dr hab. Dycht", cls: "s-pedspec", zal: "egz" },
+  { name: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "5 ECTS · E", lect: "mgr M. Ochnio", cls: "s-pedspec", zal: "egz" },
+  { name: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "1 ECTS · E", lect: "dr A. Cwer", cls: "s-praca", zal: "egz" },
+  { name: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz.", ects: "6 ECTS · ZO", lect: "mgr A. Sikorska", cls: "s-dydaktyka", zal: "zo" },
+  { name: "Animacja środowiskowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "4 ECTS · ZO", lect: "mgr K. Wyszomirska", cls: "s-animacja", zal: "zo" },
+  { name: "Metodyka wychowania oraz aktywizacja dzieci i młodzieży — ćwiczenia", form: "ćwiczenia", hrs: "20 godz.", ects: "5 ECTS · ZO", lect: "mgr A. Sikorska", cls: "s-metodyka", zal: "zo" },
 ];
 
 const FORM_LABEL = {
@@ -530,12 +656,14 @@ const FORM_LABEL = {
   "ćwiczenia": "ćwiczenia",
   "konwersatorium": "konwers.",
   "lektorat": "lektorat",
+  "spotkanie": "spotkanie",
 };
 const FORM_CLASS = {
   "wykład": "f-wyklad",
   "ćwiczenia": "f-cwiczenia",
   "konwersatorium": "f-konwersatorium",
   "lektorat": "f-lektorat",
+  "spotkanie": "f-spotkanie",
 };
 
 /* ================== RENDER ================== */
@@ -557,8 +685,6 @@ document.getElementById("zjazdStrip").innerHTML =
 
 function buildTable(day, tableId) {
   const classes = CLASSES[day];
-  const slots = SLOTS[day];
-  // grid[slot][zjazdN] -> class or null
   const tbl = document.getElementById(tableId);
   const dayKey = day === "sobota" ? "sob" : "ndz";
   const dayWord = day === "sobota" ? "sobota" : "niedziela";
@@ -569,22 +695,29 @@ function buildTable(day, tableId) {
   });
   html += `</tr></thead><tbody>`;
 
-  slots.forEach((slot, si) => {
+  SLOTS[day].forEach((slot, si) => {
     html += `<tr><th data-row="${si}">${slot}</th>`;
     ZJAZDY.forEach((z) => {
       const hits = classes.filter(c => c.slot === si && c.zj.includes(z.n));
       if (!hits.length) {
         html += `<td class="empty" data-col="${z.n}" data-row="${si}"></td>`;
       } else {
-        html += `<td data-col="${z.n}" data-row="${si}">` + hits.map(c => `
-          <div class="cls ${c.cls}" title="${esc(c.full)} — ${c.form}, ${c.hrs} (${c.ects}) — ${c.lect}${c.star ? " · *" : ""}">
-            <div class="t">${esc(c.title)}${c.star ? ' <span class="star">*</span>' : ""}</div>
+        const cards = hits.map(c => {
+          const hrsLabel = [c.hrs, c.ects].filter(Boolean).join(" · ");
+          const notHeld = (c.notHeldZj || []).includes(z.n);
+          const isPast = c.past || PAST_ZJ.has(z.n) || notHeld;
+          const badge = notHeld ? "nie odbyło się" : "odbyło się";
+          return `
+          <div class="cls ${c.cls}${isPast ? " past" : ""}" title="${esc(c.full)} — ${c.form}${hrsLabel ? ", " + hrsLabel : ""} — ${c.lect}${c.note ? " · " + esc(c.note) : ""}${isPast ? " · " + badge : ""}">
+            <div class="t">${esc(c.title)}${isPast ? ` <span class="done${notHeld ? " nh" : ""}">· ${badge}</span>` : ""}</div>
             <div class="meta">
               <span class="fchip ${FORM_CLASS[c.form]}">${FORM_LABEL[c.form]}</span>
               <span class="lect">${esc(c.lect)}</span>
             </div>
-            <div class="hrs">${c.hrs} · ${c.ects}</div>
-          </div>`).join("") + `</td>`;
+            ${hrsLabel ? `<div class="hrs">${hrsLabel}</div>` : ""}
+          </div>`; }).join("");
+        html += `<td data-col="${z.n}" data-row="${si}">` +
+          (hits.length > 1 ? `<div class="stack">${cards}</div>` : cards) + `</td>`;
       }
     });
     html += `</tr>`;
@@ -633,7 +766,9 @@ function buildZaliczenia() {
       <td class="c-lect" data-label="Prowadzący"><span class="lect">${esc(s.lect)}</span></td>
       <td class="c-zal" data-label="Forma zaliczenia">${s.zal === "egz"
         ? `<span class="zchip zchip-egz">Egzamin</span>`
-        : `<span class="zchip zchip-zo">Zaliczenie z oceną</span>`}</td>
+        : s.zal === "zo"
+          ? `<span class="zchip zchip-zo">Zaliczenie z oceną</span>`
+          : `<span class="zchip zchip-tba">Do ustalenia</span>`}${s.zalDet ? `<div class="zal-det">${s.zalDet}</div>` : ""}</td>
     </tr>`).join("");
   document.getElementById("tbl-zaliczenia").innerHTML = `
     <thead><tr>
@@ -647,15 +782,24 @@ function buildZaliczenia() {
 }
 
 /* ================== TABS ================== */
-document.querySelectorAll(".tab-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    document.querySelectorAll(".tab-btn").forEach(b => {
-      b.classList.toggle("active", b === btn);
-      b.setAttribute("aria-selected", b === btn ? "true" : "false");
-    });
-    document.querySelectorAll(".panel").forEach(p =>
-      p.classList.toggle("active", p.id === "panel-" + btn.dataset.panel));
+function activatePanel(panelName) {
+  document.querySelectorAll(".tab-btn").forEach(b => {
+    const on = b.dataset.panel === panelName;
+    b.classList.toggle("active", on);
+    b.setAttribute("aria-selected", on ? "true" : "false");
   });
+  document.querySelectorAll(".panel").forEach(p =>
+    p.classList.toggle("active", p.id === "panel-" + panelName));
+}
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => activatePanel(btn.dataset.panel));
+});
+
+// "Zobacz zmiany" hero link → jump to the Zmiany tab
+document.getElementById("zmianyLink").addEventListener("click", (e) => {
+  e.preventDefault();
+  activatePanel("zmiany");
+  document.getElementById("panel-zmiany").scrollIntoView({ behavior: "smooth", block: "start" });
 });
 </script>
 </body>
