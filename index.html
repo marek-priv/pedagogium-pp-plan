@@ -253,6 +253,7 @@
   .zchip-zo { background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; }
   .zchip-tba { background: #f1f5f9; color: #64748b; border: 1px dashed #cbd5e1; }
   .zal-det { margin-top: 6px; font-size: 11px; color: var(--ink-soft); line-height: 1.45; }
+  .zal-det:first-child { margin-top: 0; }
   .zal-det b { color: var(--ink); }
 
   /* ---------- legend ---------- */
@@ -645,7 +646,8 @@ const SUBJECTS = [
     zalDet: "<b>Praca pisemna</b> o objętości 3–4 stron, przygotowywana w zespołach dwuosobowych. Każdy zespół opracowuje jeden temat spośród zagadnień, które przesłane przez Panią Doktor. Podział na grupy - https://docs.google.com/spreadsheets/d/1qPcS1m7hoF-1hzXkXIrDB-D8rcus4hwQ/edit?usp=sharing&ouid=117889847353853028377&rtpof=true&sd=true" },
   { name: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz.", ects: "6 ECTS · ZO", lect: "dr M. Gerung", cls: "s-dydaktyka", zal: "zo" },
   { name: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz.", ects: "5 ECTS · E", lect: "dr hab. Dycht", cls: "s-pedspec", zal: "egz" },
-  { name: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "5 ECTS · E", lect: "mgr M. Ochnio", cls: "s-pedspec", zal: "egz" },
+  { name: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "5 ECTS · E", lect: "mgr M. Ochnio", cls: "s-pedspec", zal: "egz",
+    zalDet: "<b>Praca na zajęciach</b> w 5–7 osobowych grupach." },
   { name: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "1 ECTS · E", lect: "dr A. Cwer", cls: "s-praca", zal: "egz" },
   { name: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz.", ects: "6 ECTS · ZO", lect: "mgr A. Sikorska", cls: "s-dydaktyka", zal: "zo" },
   { name: "Animacja środowiskowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "4 ECTS · ZO", lect: "mgr K. Wyszomirska", cls: "s-animacja", zal: "zo" },
@@ -765,11 +767,13 @@ function buildZaliczenia() {
       <td class="c-form"><span class="fchip ${FORM_CLASS[s.form]}">${FORM_LABEL[s.form]}</span></td>
       <td class="hrs-col c-hrs">${s.hrs} · ${s.ects}</td>
       <td class="c-lect" data-label="Prowadzący"><span class="lect">${esc(s.lect)}</span></td>
-      <td class="c-zal" data-label="Forma zaliczenia">${s.zal === "egz"
-        ? `<span class="zchip zchip-egz">Egzamin</span>`
-        : s.zal === "zo"
-          ? `<span class="zchip zchip-zo">Zaliczenie z oceną</span>`
-          : `<span class="zchip zchip-tba">Do ustalenia</span>`}${s.zalDet ? `<div class="zal-det">${s.zalDet}</div>` : ""}</td>
+      <td class="c-zal" data-label="Forma zaliczenia">${s.zalDet
+        ? `<div class="zal-det">${s.zalDet}</div>`
+        : s.zal === "egz"
+          ? `<span class="zchip zchip-egz">Egzamin</span>`
+          : s.zal === "zo"
+            ? `<span class="zchip zchip-zo">Zaliczenie z oceną</span>`
+            : `<span class="zchip zchip-tba">Do ustalenia</span>`}</td>
     </tr>`).join("");
   document.getElementById("tbl-zaliczenia").innerHTML = `
     <thead><tr>
