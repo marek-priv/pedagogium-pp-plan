@@ -529,9 +529,18 @@
     <h2 class="panel-title">Zmiany w planie</h2>
     <div class="chg-stamp">
       <span class="ver">Wersja bieżąca</span>
-      <span>Aktualizacja: <b>23.10.2026</b> — zestawienie zmian względem wcześniejszej wersji planu.</span>
+      <span>Aktualizacja: <b>07.11.2026</b> — nowa wersja planu; zmiany dotyczą wyłącznie zjazdów 3–9 (zjazdy 1–2 zachowane jako odbyte).</span>
     </div>
     <div class="changes">
+      <div class="chg-group">
+        <h3><span class="cbadge" style="background:#f59e0b"></span>Aktualizacja — 07.11.2026 (nowa wersja planu)</h3>
+        <ul>
+          <li><b>Dydaktyka przedmiotowa — wykład (zjazd 3)</b>: przeniesiony z <b class="chg-del">soboty 8.00–11.15</b> <span class="chg-arrow">→</span> <b class="chg-new">niedzieli 15.15–18.30</b>; prowadzący rozszerzeni do <b class="chg-new">dr M. Gerung · prof. M. Gejdos</b>.</li>
+          <li><b>Dydaktyka przedmiotowa — wykład (zjazd 5)</b>: blok skrócony — zamiast 11.30–15.00 teraz <b class="chg-new">tylko 11.30–13.00</b>.</li>
+          <li><b>Praca dyplomowa — ćwiczenia (zjazd 3)</b>: przeniesione z <b class="chg-del">niedzieli 8.00–11.15</b> <span class="chg-arrow">→</span> <b class="chg-new">niedzieli 18.45–20.15</b> <b class="chg-new">*</b> (pozostałe terminy spotkań do ustalenia z Promotorem).</li>
+          <li><b>Bez zmian:</b> terminy zjazdów i sesja (13–14.02.2027); Zaburzenia, Pedagogika specjalna (wykład + ćwiczenia), Animacja środowiskowa, Metodyka wychowania, Dydaktyka — ćwiczenia oraz pozostałe bloki w siatce.</li>
+        </ul>
+      </div>
       <div class="chg-group">
         <h3><span class="cbadge" style="background:#b91c1c"></span>Prowadzący — odejścia</h3>
         <ul>
@@ -647,24 +656,21 @@ const SLOTS = {
 const CLASSES = {
   sobota: [
     { slot: 0, title: "Zaburzenia psychospołeczne i rozwojowe", full: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży — wykład", form: "wykład", hrs: "10 godz. · 4 ECTS", ects: "ZO", lect: "dr M. Dubis", cls: "s-zaburzenia", zj: [2,8] },
-    { slot: 0, title: "Dydaktyka przedmiotowa", full: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz. · 6 ECTS", ects: "ZO", lect: "dr M. Gerung", cls: "s-dydaktyka", zj: [3] },
     { slot: 0, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "dr hab. Dycht", cls: "s-pedspec", zj: [9] },
     { slot: 1, title: "Zaburzenia psychospołeczne i rozwojowe", full: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży — wykład", form: "wykład", hrs: "10 godz. · 4 ECTS", ects: "ZO", lect: "dr M. Dubis", cls: "s-zaburzenia", zj: [2,8] },
-    { slot: 1, title: "Dydaktyka przedmiotowa", full: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz. · 6 ECTS", ects: "ZO", lect: "dr M. Gerung", cls: "s-dydaktyka", zj: [3] },
     { slot: 2, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "dr hab. Dycht", cls: "s-pedspec", zj: [6] },
     { slot: 2, title: "Zaburzenia psychospołeczne i rozwojowe", full: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży — wykład", form: "wykład", hrs: "10 godz. · 4 ECTS", ects: "ZO", lect: "dr M. Dubis", cls: "s-zaburzenia", zj: [3] },
     { slot: 2, title: "Dydaktyka przedmiotowa", full: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz. · 6 ECTS", ects: "ZO", lect: "dr M. Gerung", cls: "s-dydaktyka", zj: [5,8] },
     { slot: 3, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "dr hab. Dycht", cls: "s-pedspec", zj: [6] },
-    { slot: 3, title: "Dydaktyka przedmiotowa", full: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz. · 6 ECTS", ects: "ZO", lect: "dr M. Gerung", cls: "s-dydaktyka", zj: [5] },
     { slot: 4, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "dr hab. Dycht", cls: "s-pedspec", zj: [4] },
     { slot: 5, title: "Pedagogika specjalna — wykład", full: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "dr hab. Dycht", cls: "s-pedspec", zj: [4] },
   ],
   niedziela: [
     { slot: 0, title: "Pedagogika specjalna — ćwiczenia", full: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "mgr M. Ochnio", cls: "s-pedspec", zj: [2,5] },
-    { slot: 0, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [3,4,7] },
+    { slot: 0, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [4,7] },
     { slot: 0, title: "Dydaktyka przedmiotowa — ćwiczenia", full: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 6 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-dydaktyka", zj: [6,8,9] },
     { slot: 1, title: "Pedagogika specjalna — ćwiczenia", full: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "mgr M. Ochnio", cls: "s-pedspec", zj: [2,5] },
-    { slot: 1, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [3,4,7] },
+    { slot: 1, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [4,7] },
     { slot: 1, title: "Dydaktyka przedmiotowa — ćwiczenia", full: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 6 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-dydaktyka", zj: [6,8,9] },
     { slot: 2, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [4] },
     { slot: 2, title: "Dydaktyka przedmiotowa — ćwiczenia", full: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 6 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-dydaktyka", zj: [6,8,9] },
@@ -674,10 +680,13 @@ const CLASSES = {
     { slot: 3, title: "Pedagogika specjalna — ćwiczenia", full: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 5 ECTS", ects: "E", lect: "mgr M. Ochnio", cls: "s-pedspec", zj: [7] },
     { slot: 4, title: "Animacja środowiskowa", full: "Animacja środowiskowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 4 ECTS", ects: "ZO", lect: "mgr K. Wyszomirska", cls: "s-animacja", zj: [2,5] },
     { slot: 4, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [4] },
+    { slot: 4, title: "Dydaktyka przedmiotowa", full: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz. · 6 ECTS", ects: "ZO", lect: "dr M. Gerung · prof. M. Gejdos", cls: "s-dydaktyka", zj: [3] },
     { slot: 4, title: "Metodyka wychowania i aktywizacja", full: "Metodyka wychowania oraz aktywizacja dzieci i młodzieży — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 5 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-metodyka", zj: [6,7,8,9] },
     { slot: 5, title: "Animacja środowiskowa", full: "Animacja środowiskowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 4 ECTS", ects: "ZO", lect: "mgr K. Wyszomirska", cls: "s-animacja", zj: [2,5] },
     { slot: 5, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [4] },
+    { slot: 5, title: "Dydaktyka przedmiotowa", full: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz. · 6 ECTS", ects: "ZO", lect: "dr M. Gerung · prof. M. Gejdos", cls: "s-dydaktyka", zj: [3] },
     { slot: 5, title: "Metodyka wychowania i aktywizacja", full: "Metodyka wychowania oraz aktywizacja dzieci i młodzieży — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 5 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-metodyka", zj: [6,7,8,9] },
+    { slot: 6, title: "Praca dyplomowa", full: "Praca dyplomowa — ćwiczenia", note: "pozostałe terminy spotkań do ustalenia z Promotorem", form: "ćwiczenia", hrs: "10 godz. · 1 ECTS", ects: "E", lect: "dr A. Cwer", cls: "s-praca", zj: [3], star: true },
     { slot: 6, title: "Metodyka wychowania i aktywizacja", full: "Metodyka wychowania oraz aktywizacja dzieci i młodzieży — ćwiczenia", form: "ćwiczenia", hrs: "20 godz. · 5 ECTS", ects: "ZO", lect: "mgr A. Sikorska", cls: "s-metodyka", zj: [6,7] },
   ],
 };
@@ -685,11 +694,12 @@ const CLASSES = {
 const SUBJECTS = [
   { name: "Zaburzenia psychospołeczne i rozwojowe u dzieci i młodzieży — wykład", form: "wykład", hrs: "10 godz.", ects: "4 ECTS · ZO", lect: "dr M. Dubis", cls: "s-zaburzenia", zal: "zo",
     zalDet: "<b>Praca pisemna</b> o objętości 3–4 stron, przygotowywana w zespołach dwuosobowych. Każdy zespół opracowuje jeden temat spośród zagadnień, które przesłane przez Panią Doktor. Podział na grupy - https://docs.google.com/spreadsheets/d/1qPcS1m7hoF-1hzXkXIrDB-D8rcus4hwQ/edit?usp=sharing&ouid=117889847353853028377&rtpof=true&sd=true" },
-  { name: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz.", ects: "6 ECTS · ZO", lect: "dr M. Gerung", cls: "s-dydaktyka", zal: "zo" },
+  { name: "Dydaktyka przedmiotowa — wykład", form: "wykład", hrs: "10 godz.", ects: "6 ECTS · ZO", lect: "dr M. Gerung · prof. M. Gejdos", cls: "s-dydaktyka", zal: "zo" },
   { name: "Pedagogika specjalna i wczesna interwencja — wykład", form: "wykład", hrs: "10 godz.", ects: "5 ECTS · E", lect: "dr hab. Dycht", cls: "s-pedspec", zal: "egz" },
   { name: "Pedagogika specjalna i wczesna interwencja — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "5 ECTS · E", lect: "mgr M. Ochnio", cls: "s-pedspec", zal: "egz",
     zalDet: "<b>Praca na zajęciach</b> w 5–7 osobowych grupach." },
-  { name: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "1 ECTS · E", lect: "dr A. Cwer", cls: "s-praca", zal: "egz" },
+  { name: "Praca dyplomowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "1 ECTS · E", lect: "dr A. Cwer", cls: "s-praca", zal: "egz",
+    zalDet: "W planie ujęto jedno spotkanie w siatce — <b>pozostałe terminy spotkań do ustalenia z Promotorem</b>." },
   { name: "Dydaktyka przedmiotowa — ćwiczenia", form: "ćwiczenia", hrs: "20 godz.", ects: "6 ECTS · ZO", lect: "mgr A. Sikorska", cls: "s-dydaktyka", zal: "zo" },
   { name: "Animacja środowiskowa — ćwiczenia", form: "ćwiczenia", hrs: "10 godz.", ects: "4 ECTS · ZO", lect: "mgr K. Wyszomirska", cls: "s-animacja", zal: "zo",
     zalDet: "<b>Obecność na zajęciach</b> + <b>recenzja filmu</b> (otrzymamy link przed zjazdem nr 3)." },
@@ -753,8 +763,8 @@ function buildTable(day, tableId) {
           const isPast = c.past || PAST_ZJ.has(z.n) || notHeld;
           const badge = notHeld ? "nie odbyło się" : "odbyło się";
           return `
-          <div class="cls ${c.cls}${isPast ? " past" : ""}" title="${esc(c.full)} — ${c.form}${hrsLabel ? ", " + hrsLabel : ""} — ${c.lect}${c.note ? " · " + esc(c.note) : ""}${isPast ? " · " + badge : ""}">
-            <div class="t">${esc(c.title)}${isPast ? ` <span class="done${notHeld ? " nh" : ""}">· ${badge}</span>` : ""}</div>
+          <div class="cls ${c.cls}${isPast ? " past" : ""}" title="${esc(c.full)} — ${c.form}${hrsLabel ? ", " + hrsLabel : ""} — ${c.lect}${c.star ? " · *" : ""}${c.note ? " · " + esc(c.note) : ""}${isPast ? " · " + badge : ""}">
+            <div class="t">${esc(c.title)}${c.star ? ' <span class="star">*</span>' : ""}${isPast ? ` <span class="done${notHeld ? " nh" : ""}">· ${badge}</span>` : ""}</div>
             <div class="meta">
               <span class="fchip ${FORM_CLASS[c.form]}">${FORM_LABEL[c.form]}</span>
               <span class="lect">${esc(c.lect)}</span>
