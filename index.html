@@ -533,6 +533,12 @@
     </div>
     <div class="changes">
       <div class="chg-group">
+        <h3><span class="cbadge" style="background:#f59e0b"></span>Aktualizacja — 08.11.2026</h3>
+        <ul>
+          <li><b>Sobota zjazdu 3 (7.11)</b> odbyła się — sobotnie karty oznaczone jako zrealizowane (wyciszone); zajęcia niedzielne zjazdu 3 (8.11) pozostają aktywne.</li>
+        </ul>
+      </div>
+      <div class="chg-group">
         <h3><span class="cbadge" style="background:#f59e0b"></span>Aktualizacja — 07.11.2026 (nowa wersja planu)</h3>
         <ul>
           <li><b>Dydaktyka przedmiotowa — wykład (zjazd 3)</b>: przeniesiony z <b class="chg-del">soboty 8.00–11.15</b> <span class="chg-arrow">→</span> <b class="chg-new">niedzieli 15.15–18.30</b>; prowadzący rozszerzeni do <b class="chg-new">dr M. Gerung · prof. M. Gejdos</b>.</li>
@@ -631,6 +637,8 @@ const SESJA = "13–14.02.2027";
 
 /* zjazdy już odbyte — wszystkie karty w tych kolumnach są wyciszone */
 const PAST_ZJ = new Set([2]);
+/* sobotnie części odbytych zjazdów — niedzielna część pozostaje aktywna */
+const PAST_SOB_ZJ = new Set([3]);
 
 const SLOTS = {
   sobota: [
@@ -760,7 +768,8 @@ function buildTable(day, tableId) {
         const cards = hits.map(c => {
           const hrsLabel = [c.hrs, c.ects].filter(Boolean).join(" · ");
           const notHeld = (c.notHeldZj || []).includes(z.n);
-          const isPast = c.past || PAST_ZJ.has(z.n) || notHeld;
+          const isPast = c.past || PAST_ZJ.has(z.n) || notHeld ||
+            (day === "sobota" && PAST_SOB_ZJ.has(z.n));
           const badge = notHeld ? "nie odbyło się" : "odbyło się";
           return `
           <div class="cls ${c.cls}${isPast ? " past" : ""}" title="${esc(c.full)} — ${c.form}${hrsLabel ? ", " + hrsLabel : ""} — ${c.lect}${c.star ? " · *" : ""}${c.note ? " · " + esc(c.note) : ""}${isPast ? " · " + badge : ""}">
