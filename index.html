@@ -144,8 +144,9 @@
     background: var(--card); transition: background .12s;
   }
   .matrix td.empty { background: #fafbfd; }
-  .matrix td.col-hidden { display: none; }
-  .matrix th.col-hidden { min-width: 24px; width: 24px; padding: 4px 2px; background: #e9edf5; }
+  .matrix td.col-hidden { width: 22px; min-width: 22px; max-width: 22px; padding: 0; overflow: hidden; background: #eef1f7; }
+  .matrix td.col-hidden > * { display: none; }
+  .matrix th.col-hidden { min-width: 22px; width: 22px; max-width: 22px; padding: 4px 2px; background: #e9edf5; }
   .matrix th.col-hidden .zd, .matrix th.col-hidden .zday { display: none; }
   .matrix th.col-hidden .zh { font-size: 9px; }
   .matrix th.past-col { cursor: pointer; user-select: none; }
